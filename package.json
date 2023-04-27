@@ -10,25 +10,24 @@
 		"format": "prettier --write \"src\""
 	},
 	"dependencies": {
-		"@types/node": "18.16.1",
-		"@types/react": "18.2.0",
-		"@types/react-dom": "18.2.1",
-		"eslint": "8.39.0",
-		"eslint-config-next": "13.3.1",
 		"next": "13.3.1",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"typescript": "5.0.4"
 	},
 	"devDependencies": {
+		"@types/node": "18.16.1",
+		"@types/react": "18.2.0",
+		"@types/react-dom": "18.2.1",
 		"@typescript-eslint/eslint-plugin": "5.54.1",
 		"@typescript-eslint/parser": "5.54.1",
-		"eslint": "8.36.0",
+		"eslint": "8.39.0",
 		"eslint-plugin-css-modules": "2.11.0",
 		"eslint-plugin-jsx-a11y": "6.7.1",
 		"eslint-plugin-prettier": "4.2.1",
 		"eslint-plugin-react-hooks": "4.6.0",
 		"eslint-plugin-unused-imports": "2.0.0",
+		"eslint-config-next": "13.3.1",
 		"prettier": "2.8.4"
 	}
 }
