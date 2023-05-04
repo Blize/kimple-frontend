@@ -1,0 +1,13 @@
+.container {
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr 3fr;
+}
+
+.folders {
+	border-radius: 1rem;
+}
+
+.notes {
+	border-radius: 1rem;
+}
