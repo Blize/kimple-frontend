@@ -8,6 +8,8 @@ body {
 :root {
 	--bg: #202021;
 	--color: #323233;
+	--active: #58585c;
+
 	--blue: #313fbc;
 
 	--text-primary: #ffffff;
