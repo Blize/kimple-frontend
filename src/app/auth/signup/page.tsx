@@ -1,6 +1,6 @@
 'use client';
 import { ReactElement, useState } from 'react';
-import InputField from '../../../components/InputField/InputField';
+import Input from '../../../components/Input/Input';
 import styles from './page.module.css';
 
 const SignUpPage = (): ReactElement => {
@@ -13,7 +13,7 @@ const SignUpPage = (): ReactElement => {
 			<div className={styles.wrapper}>
 				<h1>Sign Up</h1>
 				<label htmlFor="username">Username</label>
-				<InputField
+				<Input
 					type={'text'}
 					value={userName}
 					name={'username'}
@@ -21,14 +21,9 @@ const SignUpPage = (): ReactElement => {
 					onChange={(v) => setUserName(v.target.value)}
 				/>
 				<label htmlFor="email">Email</label>
-				<InputField type={'email'} value={email} name={'email'} onChange={(v) => setEmail(v.target.value)} />
+				<Input type={'email'} value={email} name={'email'} onChange={(v) => setEmail(v.target.value)} />
 				<label htmlFor="password">Password</label>
-				<InputField
-					type={'password'}
-					value={passWord}
-					name={'password'}
-					onChange={(v) => setPassWord(v.target.value)}
-				/>
+				<Input type={'password'} value={passWord} name={'password'} onChange={(v) => setPassWord(v.target.value)} />
 			</div>
 		</div>
 	);
