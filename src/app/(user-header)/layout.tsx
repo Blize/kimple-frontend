@@ -3,6 +3,10 @@ import { ReactElement, ReactNode } from 'react';
 
 import { getCurrentUser } from '@/services/auth.service';
 
+import Navigation from '@/components/Navigation/Navigation';
+
+import styles from './layout.module.css';
+
 type Props = {
 	children: ReactNode;
 };
@@ -12,12 +16,16 @@ const Layout = async ({ children }: Props): Promise<ReactElement> => {
 	const user = await getCurrentUser(tokenCookie);
 
 	return (
-		<div>
+		<div className={styles.container}>
 			<div>
 				<p>Welcome back, {user.username}</p>
 			</div>
 
-			<div>nav</div>
+			<hr className={styles.lines} />
+
+			<Navigation />
+
+			<hr className={styles.lines} />
 
 			{children}
 		</div>
