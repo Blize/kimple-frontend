@@ -5,7 +5,6 @@ import { z } from 'zod';
  * built with invalid env vars.
  */
 const server = z.object({
-	DATABASE_URL: z.string().url(),
 	NODE_ENV: z.enum(['development', 'test', 'production']),
 });
 
@@ -14,11 +13,9 @@ const server = z.object({
  * built with invalid env vars. To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 const client = z.object(
-	/** @satisfies {Record<`NEXT_PUBLIC_${string}`, import('zod').ZodType>} */ (
-		{
-			// NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
-		}
-	),
+	/** @satisfies {Record<`NEXT_PUBLIC_${string}`, import('zod').ZodType>} */ ({
+		NEXT_PUBLIC_BACKEND_URL: z.string().url(),
+	}),
 );
 
 /**
@@ -28,9 +25,8 @@ const client = z.object(
  * @type {Record<keyof z.infer<typeof server> | keyof z.infer<typeof client>, string | undefined>}
  */
 const processEnv = {
-	DATABASE_URL: process.env.DATABASE_URL,
 	NODE_ENV: process.env.NODE_ENV,
-	// NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+	NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
 };
 
 // Don't touch the part below
