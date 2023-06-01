@@ -34,36 +34,7 @@ const NotificationContext = createContext<Values>({
 });
 
 const NotificationProvider = ({ children }: Props): ReactElement => {
-	const [notifications, setNotifications] = useState<Notification[]>([
-		{
-			id: 12381237,
-			level: 'info',
-			message: 'Hello World',
-			faded: false,
-			cleared: false,
-		},
-		{
-			id: 2,
-			level: 'error',
-			message: 'Hello World',
-			faded: false,
-			cleared: false,
-		},
-		{
-			id: 3,
-			level: 'warning',
-			message: 'Hello World',
-			faded: false,
-			cleared: false,
-		},
-		{
-			id: 4,
-			level: 'success',
-			message: 'Hello World',
-			faded: false,
-			cleared: false,
-		},
-	]);
+	const [notifications, setNotifications] = useState<Notification[]>([]);
 
 	const fadedNotification = (id: Notification['id']): void => {
 		setNotifications((notifications) =>
@@ -144,13 +115,20 @@ const NotificationProvider = ({ children }: Props): ReactElement => {
 
 	const value: Values = { notifications, addInfo, addSuccess, addWarning, addError };
 
+	const levelStyles = {
+		info: styles.info,
+		success: styles.success,
+		warning: styles.warning,
+		error: styles.error,
+	};
+
 	return (
 		<NotificationContext.Provider value={value}>
 			<div className={styles.wrapper}>
 				{notifications
 					.sort((a, b) => b.id - a.id)
 					.map((notification) => (
-						<div key={notification.id} className={clsx(styles.notification, styles[notification.level])}>
+						<div key={notification.id} className={clsx(styles.notification, levelStyles[notification.level])}>
 							<p className={styles.message}>{notification.message}</p>
 
 							<Image src={icon} height={20} width={20} alt="close" onClick={() => clearNotification(notification.id)} />
