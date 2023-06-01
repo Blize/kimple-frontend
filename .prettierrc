@@ -12,7 +12,8 @@
 		"^(.*).module.scss$",
 		"^@/types/(.*)$",
 		"^@/lib/(.*)$",
-		"^@/context/(.*)$",
+		"^@/services/(.*)$",
+		"^@/providers/(.*)$",
 		"^@/components/(.*)$",
 		"^@/assets/(.*)$",
 		"^[./]"
