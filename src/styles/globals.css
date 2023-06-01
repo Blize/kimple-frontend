@@ -1,6 +1,12 @@
 body {
 	margin: 0;
+
+	color: #fff;
+	background-color: var(--bg);
 }
 
 :root {
+	--bg: #202021;
+	--color: #323233;
+	--blue: #313fbc;
 }

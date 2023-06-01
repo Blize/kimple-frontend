@@ -1,6 +1,9 @@
 'use client';
+
 import { ReactElement, useState } from 'react';
-import Input from '../../../components/Input/Input';
+
+import Input from '@/components/Input/Input';
+
 import styles from './page.module.css';
 
 const SignUpPage = (): ReactElement => {

@@ -1,4 +1,5 @@
-import { ReactElement, ChangeEvent } from 'react';
+import { ChangeEvent, ReactElement } from 'react';
+
 import styles from './Input.module.css';
 
 type Props = {

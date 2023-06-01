@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
-import styles from './page.module.css';
+
 import Textarea from '../../components/Textarea/Textarea';
+import styles from './page.module.css';
 
 export default function Page(): ReactElement {
 	return (
