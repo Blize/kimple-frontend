@@ -66,7 +66,9 @@ const RegisterPage = (): ReactElement => {
 					/>
 				</div>
 
-				<Button onClick={() => handleRegister(username, password)}>Register</Button>
+				<Button className={styles.button} onClick={() => handleRegister(username, password)}>
+					Register
+				</Button>
 
 				<Link href={'/login'}>or login here</Link>
 			</div>

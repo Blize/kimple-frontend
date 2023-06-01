@@ -26,3 +26,7 @@
 .input {
 	width: 15rem;
 }
+
+.button {
+	background-color: var(--blue);
+}
