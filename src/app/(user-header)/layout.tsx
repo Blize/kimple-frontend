@@ -3,6 +3,7 @@ import { ReactElement, ReactNode } from 'react';
 
 import { getCurrentUser } from '@/services/auth.service';
 
+import Line from '@/components/Line/Line';
 import Navigation from '@/components/Navigation/Navigation';
 
 import styles from './layout.module.css';
@@ -21,11 +22,11 @@ const Layout = async ({ children }: Props): Promise<ReactElement> => {
 				<p>Welcome back, {user.username}</p>
 			</div>
 
-			<hr className={styles.lines} />
+			<Line />
 
 			<Navigation />
 
-			<hr className={styles.lines} />
+			<Line />
 
 			{children}
 		</div>

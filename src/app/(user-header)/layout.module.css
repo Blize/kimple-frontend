@@ -1,7 +1,3 @@
 .container {
 	margin: 1rem;
 }
-
-.lines {
-	border: 0.5px solid var(--color);
-}
