@@ -5,9 +5,8 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background-image: url('../../../../public/SignUp.jpg');
-	background-size: cover;
 }
+
 .wrapper {
 	display: flex;
 	flex-direction: column;
