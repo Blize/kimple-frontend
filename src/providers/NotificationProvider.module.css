@@ -1,0 +1,43 @@
+.wrapper {
+	top: 0;
+	right: 0;
+	z-index: 200;
+	max-height: 40vh;
+	position: absolute;
+	overflow: hidden auto;
+}
+
+.notification {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	min-width: 15rem;
+	max-width: 20rem;
+
+	padding: 0.5rem;
+	margin: 0.5rem;
+}
+
+.message {
+	color: #fff;
+	line-height: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.info {
+	border: 0.2rem solid var(--notification-info);
+}
+
+.success {
+	border: 0.2rem solid var(--notification-success);
+}
+
+.warning {
+	border: 0.2rem solid var(--notification-warning);
+}
+
+.error {
+	border: 0.2rem solid var(--notification-error);
+}

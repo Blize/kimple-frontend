@@ -1,6 +1,8 @@
 import { Inter } from 'next/font/google';
 import { ReactElement, ReactNode } from 'react';
 
+import { NotificationProvider } from '@/providers/NotificationProvider';
+
 import '../styles/globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -17,7 +19,9 @@ type Props = {
 export default function RootLayout({ children }: Props): ReactElement {
 	return (
 		<html lang={'en'} className={inter.className}>
-			<body>{children}</body>
+			<body>
+				<NotificationProvider>{children}</NotificationProvider>
+			</body>
 		</html>
 	);
 }
