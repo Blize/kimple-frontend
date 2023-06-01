@@ -9,4 +9,21 @@ body {
 	--bg: #202021;
 	--color: #323233;
 	--blue: #313fbc;
+
+	--text-primary: #ffffff;
+
+	--notification-info: #444444;
+	--notification-success: #313fbc;
+	--notification-warning: #d9743a;
+	--notification-error: #d93a55;
+}
+
+input,
+button {
+	border: none;
+}
+
+a {
+	text-decoration: none;
+	color: #fff;
 }
