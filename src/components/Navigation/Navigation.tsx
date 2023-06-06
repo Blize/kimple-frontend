@@ -17,8 +17,10 @@ const Navigation = (): ReactElement => {
 			</Link>
 
 			<Link href={'/editor'}>
-				<Button className={pathname === '/editor' ? styles.active : ''}>Editor</Button>
+				<Button className={pathname.startsWith('/editor') ? styles.active : ''}>Editor</Button>
 			</Link>
+
+			{/* TODO breadcrumbs */}
 		</div>
 	);
 };
