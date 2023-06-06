@@ -1,0 +1,13 @@
+.note {
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+
+	gap: 0.5rem;
+
+	margin-left: 1.5rem;
+}
+
+.icon {
+	opacity: 0.5;
+}
