@@ -30,6 +30,8 @@ const RegisterPage = (): ReactElement => {
 		try {
 			await register({ username, password });
 			const { token } = await login({ username, password });
+
+			// TODO use exp instead of ENV
 			setCookie('token', token, {
 				sameSite: true,
 				expires: new Date(Date.now() + env.NEXT_PUBLIC_COOKIE_EXPIRY * 1000 * 14),
