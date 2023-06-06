@@ -2,6 +2,8 @@
 
 import { ReactElement } from 'react';
 
+import ErrorState from '@/components/ErrorState/ErrorState';
+
 export default function Error(): ReactElement {
-	return <div>oh noues an error occurred</div>;
+	return <ErrorState />;
 }

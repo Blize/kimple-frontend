@@ -2,12 +2,14 @@ body {
 	margin: 0;
 
 	color: #fff;
-	background-color: var(--bg);
+	background-color: var(--gray);
 }
 
 :root {
-	--bg: #202021;
-	--color: #323233;
+	--gray: #202021;
+	--gray-2: #323233;
+	--gray-3: #58585c;
+
 	--blue: #313fbc;
 
 	--text-primary: #ffffff;

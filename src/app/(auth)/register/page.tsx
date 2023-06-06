@@ -1,11 +1,12 @@
 'use client';
 
+import { env } from '@/env.mjs';
 import { setCookie } from 'cookies-next';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ReactElement, useState } from 'react';
 
-import { login } from '@/services/auth.service';
+import { login, register } from '@/services/auth.service';
 
 import { useNotifications } from '@/providers/NotificationProvider';
 
@@ -14,32 +15,38 @@ import Input from '@/components/Input/Input';
 
 import styles from './page.module.css';
 
-const LoginPage = (): ReactElement => {
+const RegisterPage = (): ReactElement => {
 	const { addSuccess, addError } = useNotifications();
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 
 	const router = useRouter();
 
-	const handleLogin = async (username: string, password: string): Promise<void> => {
+	const handleRegister = async (username: string, password: string): Promise<void> => {
+		console.log({ password, username });
+
 		if (!username || !password) return;
 
 		try {
+			await register({ username, password });
 			const { token } = await login({ username, password });
-			setCookie('token', token, { sameSite: true, expires: new Date(Date.now() + 86400 * 1000 * 14) });
+			setCookie('token', token, {
+				sameSite: true,
+				expires: new Date(Date.now() + env.NEXT_PUBLIC_COOKIE_EXPIRY * 1000 * 14),
+			});
 
-			addSuccess('successfully logged in');
+			addSuccess('successfully registered');
 
 			router.push('/home');
 		} catch (err) {
-			addError('login failed', err);
+			addError('registering failed', err);
 		}
 	};
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.container}>
-				<h1>Welcome please login</h1>
+				<h1>Welcome please register</h1>
 
 				<div className={styles.fields}>
 					<Input
@@ -59,12 +66,14 @@ const LoginPage = (): ReactElement => {
 					/>
 				</div>
 
-				<Button onClick={() => handleLogin(username, password)}>Login</Button>
+				<Button className={styles.button} onClick={() => handleRegister(username, password)}>
+					Register
+				</Button>
 
-				<Link href={'/login'}>or register here</Link>
+				<Link href={'/login'}>or login here</Link>
 			</div>
 		</div>
 	);
 };
 
-export default LoginPage;
+export default RegisterPage;
