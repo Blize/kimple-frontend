@@ -5,5 +5,5 @@
 }
 
 .active {
-	background-color: var(--active);
+	background-color: var(--gray-3);
 }
