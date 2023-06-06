@@ -18,7 +18,7 @@ const Layout = async ({ children }: Props): Promise<ReactElement> => {
 
 	return (
 		<div className={styles.container}>
-			<div>
+			<div className={styles.header}>
 				<p>Welcome back, {user.username}</p>
 			</div>
 

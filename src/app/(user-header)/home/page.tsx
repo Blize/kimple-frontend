@@ -6,6 +6,7 @@ import { Note } from '@/types/note.type';
 import { getNotes } from '@/services/notes.service';
 
 import CreateCard from '@/components/CreateCard/CreateCard';
+import HomeCard from '@/components/HomeCard/HomeCard';
 import Line from '@/components/Line/Line';
 
 import styles from './home.module.css';
@@ -16,7 +17,7 @@ const HomePage = async (): Promise<ReactElement> => {
 	const notes: Note[] | null = (await getNotes(cookieToken)) ?? null;
 
 	return (
-		<div>
+		<div className={styles.container}>
 			<p>Recently Viewed</p>
 
 			<div>{/* cards */}</div>
@@ -26,7 +27,8 @@ const HomePage = async (): Promise<ReactElement> => {
 			<p>Notes</p>
 
 			<div className={styles.cardContainer}>
-				{notes && notes.map((note) => <p key={`notes.${note.id}`}>{note.title}</p>)} <CreateCard label="Add Note" />
+				{notes && notes.map((note) => <HomeCard key={note.id} note={note} />)}
+				<CreateCard label="Add Note" />
 			</div>
 
 			<Line />
