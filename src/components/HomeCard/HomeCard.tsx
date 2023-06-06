@@ -10,8 +10,6 @@ type Props = {
 };
 
 const HomeCard = ({ note }: Props): ReactElement => {
-	// what did we say again, should it be in the url that is a note or a todo?
-
 	return (
 		<Link href={`/editor/${note.id}`}>
 			<div className={styles.wrapper}>
