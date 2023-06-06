@@ -10,3 +10,14 @@
 	align-items: center;
 	gap: 0.5rem;
 }
+
+.emptySuggestions {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	height: 14rem;
+
+	opacity: 0.5;
+}
