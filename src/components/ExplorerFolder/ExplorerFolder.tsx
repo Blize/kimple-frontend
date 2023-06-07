@@ -10,20 +10,22 @@ import { Folder } from '@/types/folder.type';
 import { Note } from '@/types/note.type';
 import { Todo } from '@/types/todo.type';
 
-import { updateFolder } from '@/services/folder.service';
+import { deleteFolder, updateFolder } from '@/services/folder.service';
 
 import { useExplorer } from '@/providers/ExplorerProvider';
 import { useNotifications } from '@/providers/NotificationProvider';
 
+import ExplorerAddInput from '@/components/ExplorerAddInput/ExplorerAddInput';
 import ExplorerNote from '@/components/ExplorerNote/ExplorerNote';
 import ExplorerTodo from '@/components/ExplorerTodo/ExplorerTodo';
+import Tooltip from '@/components/Tooltip/Tooltip';
 
 import chevronIcon from '@/assets/chevron-right.svg';
 import folderIcon from '@/assets/folder.svg';
+import moreIcon from '@/assets/more.svg';
 import penIcon from '@/assets/pen.svg';
 import trashIcon from '@/assets/trash.svg';
 
-import ExplorerAddInput from '../ExplorerAddInput/ExplorerAddInput';
 import styles from './ExplorerFolder.module.css';
 
 type Props = {
@@ -71,6 +73,18 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 		}
 	};
 
+	const handleDelete = async (): Promise<void> => {
+		try {
+			await deleteFolder(tokenCookie, folder.id);
+
+			addSuccess('successfully deleted folder');
+
+			startTransition(() => router.refresh());
+		} catch (err) {
+			addError('failed to delete folder', err);
+		}
+	};
+
 	const showNewFolder = newFolderMode && selectedFolder && selectedFolder.id === folder.id;
 
 	return (
@@ -102,11 +116,29 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 					)}
 				</div>
 
-				<div className={styles.options}>
+				<Tooltip
+					items={[
+						{
+							label: 'Edit',
+							icon: 'pen',
+							action: () => handleEdit(),
+						},
+						{
+							label: 'Delete',
+							icon: 'trash',
+							confirmation: 'Are you sure?',
+							action: () => handleDelete(),
+						},
+					]}
+				>
+					<Image className={styles.edit} src={moreIcon} width={20} height={20} alt="more icon" />
+				</Tooltip>
+
+				{/* <div className={styles.options}>
 					<Image className={styles.edit} src={penIcon} width={20} height={20} alt="pen icon" onClick={handleEdit} />
 
-					<Image src={trashIcon} width={20} height={20} alt="delete icon" />
-				</div>
+					
+				</div> */}
 			</div>
 
 			{/* TODO animations */}

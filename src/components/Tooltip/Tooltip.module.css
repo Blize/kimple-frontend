@@ -1,0 +1,14 @@
+.tooltip {
+	position: absolute;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	width: 10rem;
+
+	padding: 0.5rem;
+
+	background-color: var(--dark);
+	backdrop-filter: blur(5px);
+}

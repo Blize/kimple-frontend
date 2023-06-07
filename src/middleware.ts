@@ -20,6 +20,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse | v
 				name: 'recent',
 				value: JSON.stringify(updatedRecent(recentCookie, itemPage)),
 				expires: Date.now() + 10 * 365 * 24 * 60 * 60,
+				sameSite: true,
 			});
 
 			return response;

@@ -20,6 +20,7 @@ const HomePage = async (): Promise<ReactElement> => {
 
 	// TODO add todos here too when implemented
 	const suggestions = [...notes].sort((itemA, itemB) => {
+		// TODO handle if cookieRecent[itemA.id] or cookieRecent[itemB.id] is undefined
 		if (cookieRecent[itemA.id] > cookieRecent[itemB.id]) return -1;
 		if (cookieRecent[itemA.id] < cookieRecent[itemB.id]) return 1;
 		return 0;
@@ -29,7 +30,7 @@ const HomePage = async (): Promise<ReactElement> => {
 		<div className={styles.container}>
 			<p>Most Viewed</p>
 
-			<div>
+			<div className={styles.cardContainer}>
 				{suggestions.map((item) => (
 					<HomeCard key={`suggestion.${item.id}`} note={item} />
 				))}

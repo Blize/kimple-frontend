@@ -37,3 +37,12 @@ export const updateFolder = (token: string, id: string, newFolder: UpdateFolder)
 		cache: 'no-store',
 	});
 };
+
+export const deleteFolder = (token: string, id: string): Promise<null> => {
+	return fetcher<null>('delete', `${baseURL}/folder/${id}`, null, {
+		headers: {
+			Authorization: `bearer ${token}`,
+		},
+		cache: 'no-store',
+	});
+};
