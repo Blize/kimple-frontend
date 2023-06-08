@@ -16,7 +16,7 @@ const ExplorerTodo = ({ todo }: Props): ReactElement => {
 	return (
 		<Link href={`/editor/${todo.id}`}>
 			<div className={styles.todo}>
-				<Image src={todoIcon} width={20} height={20} alt="todo icon" />
+				<Image className={styles.icon} src={todoIcon} width={20} height={20} alt="todo icon" />
 				<p>{todo.title ?? todo.todoItems[0].name ?? 'Empty Todo'}</p>
 			</div>
 		</Link>

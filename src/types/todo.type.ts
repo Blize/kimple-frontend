@@ -13,3 +13,15 @@ export type Todo = Base & {
 	folderId: string | null;
 	todoItems: TodoItem[];
 };
+
+export type CreateTodo = {
+	title?: string;
+	folderId?: string;
+	todoItems?: TodoItem[];
+};
+
+export type UpdateTodo = {
+	title?: string | null;
+	folderId?: string | null;
+	todoItems?: TodoItem[];
+};
