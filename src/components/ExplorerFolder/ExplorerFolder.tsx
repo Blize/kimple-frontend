@@ -35,33 +35,26 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 	const tokenCookie = getCookie('token')?.toString() ?? '';
 
 	const { addSuccess, addError } = useNotifications();
-	const {
-		selectedFolder,
-		setSelectedFolder,
-		newFolderMode,
-		setNewFolderMode,
-		newFolderTitle,
-		setNewFolderTitle,
-		handleAddFolder,
-	} = useExplorer();
+	const { selectedFolder, setSelectedFolder, newItemMode, setNewItemMode, newTitle, setNewTitle, handleNewItem } =
+		useExplorer();
 
 	const router = useRouter();
 
 	const [open, setOpen] = useState(false);
 	const [edit, setEdit] = useState(false);
-	const [newTitle, setNewTitle] = useState('');
+	const [folderTitle, setFolderTitle] = useState('');
 
 	const handleEdit = (): void => {
 		setEdit((old) => !old);
-		setNewTitle(folder.title);
+		setFolderTitle(folder.title);
 	};
 
 	const handleUpdate = async (): Promise<void> => {
-		if (newTitle === folder.title) return setEdit(false);
+		if (folderTitle === folder.title) return setEdit(false);
 
 		try {
 			await updateFolder(tokenCookie, folder.id, {
-				title: newTitle,
+				title: folderTitle,
 			});
 
 			startTransition(() => router.refresh());
@@ -86,7 +79,7 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 		}
 	};
 
-	const showNewFolder = newFolderMode && selectedFolder && selectedFolder.id === folder.id;
+	const showNewItem = newItemMode && selectedFolder && selectedFolder.id === folder.id;
 
 	return (
 		<div>
@@ -109,8 +102,8 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 					) : (
 						<ExplorerAddInput
 							type="folder"
-							value={newTitle}
-							onChange={(e) => setNewTitle(e.target.value)}
+							value={folderTitle}
+							onChange={(e) => setFolderTitle(e.target.value)}
 							onSubmit={() => handleUpdate()}
 							onBlur={() => setEdit(false)}
 						/>
@@ -150,14 +143,14 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 				{(!folder.subFolders || folder.subFolders.length < 1) && <p className="small">no items</p>}
 			</div>
 
-			<div className={styles.addFolderContainer} style={{ display: showNewFolder ? 'flex' : 'none' }}>
-				{showNewFolder && (
+			<div className={styles.addFolderContainer} style={{ display: showNewItem ? 'flex' : 'none' }}>
+				{showNewItem && (
 					<ExplorerAddInput
-						type="folder"
-						value={newFolderTitle}
-						onChange={(e) => setNewFolderTitle(e.target.value)}
-						onSubmit={() => handleAddFolder(tokenCookie)}
-						onBlur={() => setNewFolderMode((oldValue) => !oldValue)}
+						type={newItemMode}
+						value={newTitle}
+						onChange={(e) => setNewTitle(e.target.value)}
+						onSubmit={() => handleNewItem(tokenCookie)}
+						onBlur={() => setNewItemMode(null)}
 					/>
 				)}
 			</div>

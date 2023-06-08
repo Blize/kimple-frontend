@@ -29,15 +29,8 @@ type Props = {
 const Explorer = ({ tree }: Props): ReactElement => {
 	const tokenCookie = getCookie('token')?.toString() ?? '';
 
-	const {
-		selectedFolder,
-		setSelectedFolder,
-		newFolderMode,
-		setNewFolderMode,
-		newFolderTitle,
-		setNewFolderTitle,
-		handleAddFolder,
-	} = useExplorer();
+	const { selectedFolder, setSelectedFolder, newItemMode, setNewItemMode, newTitle, setNewTitle, handleNewItem } =
+		useExplorer();
 
 	const handleDeselect = (event: MouseEvent): void => {
 		if (event.target !== event.currentTarget) return;
@@ -67,29 +60,35 @@ const Explorer = ({ tree }: Props): ReactElement => {
 						);
 					})}
 
-				{newFolderMode && !selectedFolder && (
+				{newItemMode && !selectedFolder && (
 					<ExplorerAddInput
-						type="folder"
-						value={newFolderTitle}
-						onChange={(e) => setNewFolderTitle(e.target.value)}
-						onSubmit={() => handleAddFolder(tokenCookie)}
-						onBlur={() => setNewFolderMode((oldValue) => !oldValue)}
+						type={newItemMode}
+						value={newTitle}
+						onChange={(e) => setNewTitle(e.target.value)}
+						onSubmit={() => handleNewItem(tokenCookie)}
+						onBlur={() => setNewItemMode(null)}
 					/>
 				)}
 			</div>
 
 			<div className={styles.buttons}>
-				<Button className={styles.button} onClick={() => setNewFolderMode((oldValue) => !oldValue)}>
+				<Button className={styles.button} onClick={() => setNewItemMode((oldValue) => (oldValue ? null : 'folder'))}>
 					New Folder
 				</Button>
 
 				<div className={styles.splitButtons}>
-					<Button className={clsx(styles.button, styles.splitButton)}>
+					<Button
+						className={clsx(styles.button, styles.splitButton)}
+						onClick={() => setNewItemMode((oldValue) => (oldValue ? null : 'note'))}
+					>
 						<Image src={noteIcon} width={20} height={20} alt="note icon" />
 						Add Note
 					</Button>
 
-					<Button className={clsx(styles.button, styles.splitButton)}>
+					<Button
+						className={clsx(styles.button, styles.splitButton)}
+						onClick={() => setNewItemMode((oldValue) => (oldValue ? null : 'todo'))}
+					>
 						<Image src={todoIcon} width={20} height={20} alt="todo icon" />
 						Add Todo
 					</Button>
