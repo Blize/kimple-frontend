@@ -7,7 +7,7 @@ import { ChangeEvent, ReactElement, startTransition, useState } from 'react';
 
 import { Note } from '@/types/note.type';
 
-import { createNote } from '@/services/notes.service';
+import { createNote, updateNote } from '@/services/notes.service';
 
 import { useNotifications } from '@/providers/NotificationProvider';
 
@@ -27,7 +27,7 @@ export default function Editor({ note, update }: Props): ReactElement {
 	const router = useRouter();
 	const { addSuccess, addError, addWarning } = useNotifications();
 
-	const handleSaveNote = async (): Promise<void> => {
+	const handleCreateNote = async (): Promise<void> => {
 		if (textAreaValue === '') {
 			addWarning('Cant create empty note');
 			return;
@@ -42,7 +42,17 @@ export default function Editor({ note, update }: Props): ReactElement {
 		}
 	};
 
-	useKeyboardShortcut(['ctrl', 's'], () => (update ? void 0 : handleSaveNote()));
+	const handleUpdateNote = async (): Promise<void> => {
+		try {
+			await updateNote(cookieToken, { content: textAreaValue });
+			startTransition(() => router.refresh());
+			addSuccess('successfully created new note');
+		} catch (err) {
+			addError('failed to create note', err);
+		}
+	};
+
+	useKeyboardShortcut(['ctrl', 's'], () => (update ? handleUpdateNote : handleCreateNote()));
 	return (
 		<>
 			<textarea
@@ -50,7 +60,7 @@ export default function Editor({ note, update }: Props): ReactElement {
 				value={textAreaValue}
 				className={styles.editor}
 			/>
-			<Button onClick={() => (update ? void 0 : handleSaveNote())} className={styles.button}>
+			<Button onClick={() => (update ? handleUpdateNote : handleCreateNote())} className={styles.button}>
 				Save Note
 			</Button>
 		</>
