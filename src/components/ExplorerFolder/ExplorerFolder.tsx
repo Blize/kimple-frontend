@@ -22,7 +22,6 @@ import Tooltip from '@/components/Tooltip/Tooltip';
 
 import chevronIcon from '@/assets/chevron-right.svg';
 import folderIcon from '@/assets/folder.svg';
-import moreIcon from '@/assets/more.svg';
 import penIcon from '@/assets/pen.svg';
 import trashIcon from '@/assets/trash.svg';
 
@@ -58,6 +57,8 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 	};
 
 	const handleUpdate = async (): Promise<void> => {
+		if (newTitle === folder.title) return setEdit(false);
+
 		try {
 			await updateFolder(tokenCookie, folder.id, {
 				title: newTitle,
@@ -116,29 +117,21 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 					)}
 				</div>
 
-				<Tooltip
-					items={[
-						{
-							label: 'Edit',
-							icon: 'pen',
-							action: () => handleEdit(),
-						},
-						{
-							label: 'Delete',
-							icon: 'trash',
-							confirmation: 'Are you sure?',
-							action: () => handleDelete(),
-						},
-					]}
-				>
-					<Image className={styles.edit} src={moreIcon} width={20} height={20} alt="more icon" />
-				</Tooltip>
-
-				{/* <div className={styles.options}>
+				<div className={styles.options}>
 					<Image className={styles.edit} src={penIcon} width={20} height={20} alt="pen icon" onClick={handleEdit} />
 
-					
-				</div> */}
+					<Tooltip
+						items={[
+							{
+								label: 'Are you sure?',
+								icon: 'alert',
+								action: () => handleDelete(),
+							},
+						]}
+					>
+						<Image className={styles.edit} src={trashIcon} width={20} height={20} alt="delete icon" />
+					</Tooltip>
+				</div>
 			</div>
 
 			{/* TODO animations */}
@@ -155,19 +148,6 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 					})}
 
 				{(!folder.subFolders || folder.subFolders.length < 1) && <p className="small">no items</p>}
-
-				{/* {folder.folderItems &&
-					folder.folderItems.map((folderItem) => (
-						<>
-							{'content' in folderItem ? (
-								<ExplorerNote note={folderItem as Note} key={folderItem.id} />
-							) : 'todoItems' in folderItem ? (
-								<ExplorerTodo todo={folderItem as Todo} key={folderItem.id} />
-							) : (
-								void 0
-							)}
-						</>
-					))} */}
 			</div>
 
 			<div className={styles.addFolderContainer} style={{ display: showNewFolder ? 'flex' : 'none' }}>
