@@ -8,3 +8,9 @@ export type Note = Base & {
 	createdAt: string;
 	updatedAt: string | null;
 };
+
+export type CreateNote = {
+	folderId?: string;
+	title?: string;
+	content?: string;
+};
