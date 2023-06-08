@@ -65,7 +65,7 @@ const LoginPage = (): ReactElement => {
 					Login
 				</Button>
 
-				<Link href={'/login'}>or register here</Link>
+				<Link href={'/register'}>or register here</Link>
 			</div>
 		</div>
 	);
