@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { ReactElement, ReactNode, useState } from 'react';
+import { MouseEvent, ReactElement, ReactNode, useState } from 'react';
 
 import TooltipItem from '../TooltipItem/TooltipItem';
 import styles from './Tooltip.module.css';
@@ -20,8 +20,15 @@ type Props = {
 const Tooltip = ({ items, className, children }: Props): ReactElement => {
 	const [open, setOpen] = useState(false);
 
+	const handleOpen = (e: MouseEvent): void => {
+		setOpen((old) => {
+			if (e.target !== e.currentTarget) return true;
+			return !old;
+		});
+	};
+
 	return (
-		<motion.div onClick={() => setOpen((old) => true)} className={className}>
+		<motion.div onClick={handleOpen} onMouseLeave={() => setOpen(false)} className={className}>
 			{children}
 
 			<AnimatePresence>
