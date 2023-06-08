@@ -1,0 +1,15 @@
+.editor {
+	height: 100%;
+	width: 100%;
+	padding: 0.5rem 0 0 0.5rem;
+	background-color: var(--gray-2);
+	color: white;
+	font-size: 15px;
+	border: none;
+	outline: none;
+	resize: none;
+}
+.editor:hover {
+	border: var(--primary-border-color) 1px solid;
+	cursor: pointer;
+}
