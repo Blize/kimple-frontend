@@ -1,7 +1,13 @@
 'use client';
 
 import { useKeyboardShortcut } from '@/hooks/useKeyboardShortcut';
-import { ReactElement } from 'react';
+import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, ReactElement, startTransition, useState } from 'react';
+
+import { createNote } from '@/services/notes.service';
+
+import { useNotifications } from '@/providers/NotificationProvider';
 
 import Button from '@/components/Button/Button';
 
@@ -13,15 +19,38 @@ type Props = {
 };
 
 export default function Editor({ value }: Props): ReactElement {
-	const handleSaveFile = (): void => {
-		//TODO: Code to save file
+	const tokenCookie = getCookie('token')?.toString() ?? '';
+	const [textAreaValue, setTextAreaValue] = useState('');
+
+	const router = useRouter();
+	const { addSuccess, addError, addWarning } = useNotifications();
+
+	const handleSaveNote = async (): Promise<void> => {
+		if (textAreaValue === '') {
+			addWarning('Cant create empty note');
+			return;
+		}
+		try {
+			await createNote(tokenCookie, { content: textAreaValue });
+			startTransition(() => router.refresh());
+
+			addSuccess('successfully created new note');
+		} catch (err) {
+			addError('failed to create note', err);
+		}
 	};
 
-	useKeyboardShortcut(['ctrl', 's'], handleSaveFile);
+	useKeyboardShortcut(['ctrl', 's'], handleSaveNote);
 	return (
 		<>
-			<textarea value={value} className={styles.editor} />
-			<Button className={styles.button}>Save Note</Button>
+			<textarea
+				onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setTextAreaValue(e.target.value)}
+				value={textAreaValue}
+				className={styles.editor}
+			/>
+			<Button onClick={handleSaveNote} className={styles.button}>
+				Save Note
+			</Button>
 		</>
 	);
 }

@@ -16,7 +16,7 @@ export const getNotes = (token: string): Promise<Note[]> => {
 	});
 };
 
-export const createNote = (token: string, note: Note): Promise<Note> => {
+export const createNote = (token: string, note: CreateNote): Promise<Note> => {
 	return fetcher<Note>('post', `${baseURL}/note`, note, {
 		headers: {
 			Authorization: `bearer ${token}`,
