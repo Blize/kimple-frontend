@@ -11,5 +11,13 @@
 }
 .editor:hover {
 	border: var(--primary-border-color) 1px solid;
-	cursor: pointer;
+	cursor: text;
+}
+
+.button {
+	position: absolute;
+	bottom: 2rem;
+	right: 2rem;
+	font-size: 15px;
+	background-color: var(--gray-3);
 }
