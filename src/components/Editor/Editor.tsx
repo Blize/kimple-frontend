@@ -5,6 +5,8 @@ import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, ReactElement, startTransition, useState } from 'react';
 
+import { Note } from '@/types/note.type';
+
 import { createNote } from '@/services/notes.service';
 
 import { useNotifications } from '@/providers/NotificationProvider';
@@ -14,13 +16,13 @@ import Button from '@/components/Button/Button';
 import styles from './Editor.module.css';
 
 type Props = {
-	value?: string;
-	className: string;
+	note?: Note;
+	update: boolean;
 };
 
-export default function Editor({ value }: Props): ReactElement {
-	const tokenCookie = getCookie('token')?.toString() ?? '';
-	const [textAreaValue, setTextAreaValue] = useState('');
+export default function Editor({ note, update }: Props): ReactElement {
+	const cookieToken = getCookie('token')?.toString() ?? '';
+	const [textAreaValue, setTextAreaValue] = useState(note?.content ?? '');
 
 	const router = useRouter();
 	const { addSuccess, addError, addWarning } = useNotifications();
@@ -31,7 +33,7 @@ export default function Editor({ value }: Props): ReactElement {
 			return;
 		}
 		try {
-			await createNote(tokenCookie, { content: textAreaValue });
+			await createNote(cookieToken, { content: textAreaValue });
 			startTransition(() => router.refresh());
 
 			addSuccess('successfully created new note');
@@ -40,7 +42,7 @@ export default function Editor({ value }: Props): ReactElement {
 		}
 	};
 
-	useKeyboardShortcut(['ctrl', 's'], handleSaveNote);
+	useKeyboardShortcut(['ctrl', 's'], () => (update ? void 0 : handleSaveNote()));
 	return (
 		<>
 			<textarea
@@ -48,7 +50,7 @@ export default function Editor({ value }: Props): ReactElement {
 				value={textAreaValue}
 				className={styles.editor}
 			/>
-			<Button onClick={handleSaveNote} className={styles.button}>
+			<Button onClick={() => (update ? void 0 : handleSaveNote())} className={styles.button}>
 				Save Note
 			</Button>
 		</>
