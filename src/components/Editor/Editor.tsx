@@ -13,56 +13,58 @@ import { useNotifications } from '@/providers/NotificationProvider';
 
 import Button from '@/components/Button/Button';
 
+import Input from '../Input/Input';
 import styles from './Editor.module.css';
 
 type Props = {
 	note?: Note;
-	update: boolean;
 };
 
-export default function Editor({ note, update }: Props): ReactElement {
+export default function Editor({ note }: Props): ReactElement {
 	const cookieToken = getCookie('token')?.toString() ?? '';
 	const [textAreaValue, setTextAreaValue] = useState(note?.content ?? '');
+	const [inputValue, setInputValue] = useState(note?.title ?? '');
 
 	const router = useRouter();
 	const { addSuccess, addError, addWarning } = useNotifications();
 
-	const handleCreateNote = async (): Promise<void> => {
-		if (textAreaValue === '') {
-			addWarning('Cant create empty note');
-			return;
-		}
-		try {
-			await createNote(cookieToken, { content: textAreaValue });
-			startTransition(() => router.refresh());
+	const handleSaveNote = async (): Promise<void> => {
+		if (note) {
+			try {
+				await updateNote(cookieToken, { content: textAreaValue }, note.id);
+				startTransition(() => router.refresh());
+				addSuccess('successfully update new note');
+			} catch (err) {
+				addError('failed to update note', err);
+			}
+		} else {
+			if (textAreaValue === '') {
+				addWarning(`can't create empty note`);
+				return;
+			}
+			try {
+				await createNote(cookieToken, { content: textAreaValue });
+				startTransition(() => router.refresh());
 
-			addSuccess('successfully created new note');
-		} catch (err) {
-			addError('failed to create note', err);
+				addSuccess('successfully created new note');
+			} catch (err) {
+				addError('failed to create note', err);
+			}
 		}
 	};
 
-	const handleUpdateNote = async (): Promise<void> => {
-		try {
-			await updateNote(cookieToken, { content: textAreaValue });
-			startTransition(() => router.refresh());
-			addSuccess('successfully created new note');
-		} catch (err) {
-			addError('failed to create note', err);
-		}
-	};
-
-	useKeyboardShortcut(['ctrl', 's'], () => (update ? handleUpdateNote : handleCreateNote()));
+	useKeyboardShortcut(['ctrl', 's'], () => handleSaveNote());
 	return (
-		<>
+		<div className={styles.container}>
+			<Input value={inputValue} placeholder="Your note title..." onChange={(e) => setInputValue(e.target.value)} />
 			<textarea
 				onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setTextAreaValue(e.target.value)}
 				value={textAreaValue}
 				className={styles.editor}
 			/>
-			<Button onClick={() => (update ? handleUpdateNote : handleCreateNote())} className={styles.button}>
+			<Button onClick={() => handleSaveNote()} className={styles.button}>
 				Save Note
 			</Button>
-		</>
+		</div>
 	);
 }

@@ -7,7 +7,7 @@ import styles from './page.module.css';
 export default function Page(): ReactElement {
 	return (
 		<div className={styles.container}>
-			<Editor update={false} />
+			<Editor />
 		</div>
 	);
 }
