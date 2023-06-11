@@ -9,6 +9,11 @@
 }
 
 .folders {
+	display: flex;
+	flex-direction: column;
+
+	gap: 0.5rem;
+
 	border-radius: 1rem;
 	width: 20.5rem;
 	height: 100%;

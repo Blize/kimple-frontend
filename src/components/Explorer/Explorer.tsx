@@ -38,15 +38,13 @@ const Explorer = ({ tree }: Props): ReactElement => {
 	};
 
 	return (
-		<div className={styles.explorer}>
+		<div className={styles.explorer} onClick={(e) => handleDeselect(e)}>
 			<p className="small">Explorer</p>
 
 			{/* TODO drag n drop */}
-			{/* TODO nested folder creation  */}
 			{/* TODO scrolling */}
 
-			{/* TODO set selected null when on no folder */}
-			<div className={styles.items} onClick={(e) => handleDeselect(e)}>
+			<div className={styles.items}>
 				{!tree || (tree.length < 1 && <p>no items found</p>)}
 
 				{tree &&
