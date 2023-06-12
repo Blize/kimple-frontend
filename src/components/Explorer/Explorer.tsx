@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { MouseEvent, ReactElement, useEffect } from 'react';
+import { MouseEvent, ReactElement } from 'react';
 
 import { Folder } from '@/types/folder.type';
 import { Note } from '@/types/note.type';
@@ -33,8 +33,6 @@ const Explorer = ({ tree }: Props): ReactElement => {
 
 	const { selectedFolder, setSelectedFolder, newItemMode, setNewItemMode, newTitle, setNewTitle, handleNewItem } =
 		useExplorer();
-
-	// TODO refactor this out
 
 	const handleDeselect = (event: MouseEvent): void => {
 		if (event.target !== event.currentTarget) return;
