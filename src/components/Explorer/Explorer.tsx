@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { MouseEvent, ReactElement } from 'react';
+import { MouseEvent, ReactElement, useEffect } from 'react';
 
 import { Folder } from '@/types/folder.type';
 import { Note } from '@/types/note.type';
@@ -17,7 +17,9 @@ import ExplorerFolder from '@/components/ExplorerFolder/ExplorerFolder';
 import ExplorerNote from '@/components/ExplorerNote/ExplorerNote';
 import ExplorerTodo from '@/components/ExplorerTodo/ExplorerTodo';
 
+import minusIcon from '@/assets/minus-circle.svg';
 import noteIcon from '@/assets/note.svg';
+import plusIcon from '@/assets/plus-circle.svg';
 import todoIcon from '@/assets/todo.svg';
 
 import styles from './Explorer.module.css';
@@ -32,6 +34,8 @@ const Explorer = ({ tree }: Props): ReactElement => {
 	const { selectedFolder, setSelectedFolder, newItemMode, setNewItemMode, newTitle, setNewTitle, handleNewItem } =
 		useExplorer();
 
+	// TODO refactor this out
+
 	const handleDeselect = (event: MouseEvent): void => {
 		if (event.target !== event.currentTarget) return;
 		setSelectedFolder(null);
@@ -39,7 +43,14 @@ const Explorer = ({ tree }: Props): ReactElement => {
 
 	return (
 		<div className={styles.explorer} onClick={(e) => handleDeselect(e)}>
-			<p className="small">Explorer</p>
+			<div className={styles.header}>
+				<p className="small">Explorer</p>
+
+				<div className={styles.headerActions}>
+					<Image src={plusIcon} width={15} height={15} alt="expand" />
+					<Image src={minusIcon} width={15} height={15} alt="minimize" />
+				</div>
+			</div>
 
 			{/* TODO drag n drop */}
 			{/* TODO scrolling */}

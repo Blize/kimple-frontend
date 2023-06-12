@@ -12,6 +12,7 @@ import styles from './layout.module.css';
 
 type Props = {
 	children: ReactNode;
+	searchParams: { q: string | undefined };
 };
 
 export const dynamic = 'force-dynamic';

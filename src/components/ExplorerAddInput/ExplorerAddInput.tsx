@@ -25,7 +25,7 @@ const ExplorerAddInput = ({ type, value, onChange, onSubmit, onBlur }: Props): R
 
 	return (
 		<div className={styles.container}>
-			<Image src={image} width={20} height={20} alt={`${type} icon`} />
+			<Image className={styles.icon} src={image} width={20} height={20} alt={`${type} icon`} />
 			<form onSubmit={handleSubmit}>
 				<input
 					autoFocus

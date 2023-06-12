@@ -96,7 +96,7 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 
 					{!edit ? (
 						<>
-							<Image src={folderIcon} width={20} height={20} alt="folder icon" />
+							<Image src={folderIcon} className={styles.edit} width={20} height={20} alt="folder icon" />
 							<p>{folder.title}</p>
 						</>
 					) : (

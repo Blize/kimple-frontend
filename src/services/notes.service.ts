@@ -34,8 +34,8 @@ export const createNote = (token: string, note: CreateNote): Promise<Note> => {
 	});
 };
 
-export const updateNote = (token: string, newNote: CreateNote): Promise<Note> => {
-	return fetcher<Note>('patch', `${baseURL}/note`, newNote, {
+export const updateNote = (token: string, id: string, newNote: CreateNote): Promise<Note> => {
+	return fetcher<Note>('patch', `${baseURL}/note/${id}`, newNote, {
 		headers: {
 			Authorization: `bearer ${token}`,
 		},

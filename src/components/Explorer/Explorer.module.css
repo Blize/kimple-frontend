@@ -12,6 +12,21 @@
 	background-color: var(--gray-2);
 }
 
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.headerActions {
+	display: flex;
+	flex-direction: row;
+	gap: 0.1rem;
+
+	opacity: 0.5;
+	cursor: pointer;
+}
+
 .items {
 	display: flex;
 	flex-direction: column;
