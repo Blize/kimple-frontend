@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { MouseEvent, ReactElement } from 'react';
+import { MouseEvent, ReactElement, useState } from 'react';
 
 import { Folder } from '@/types/folder.type';
 import { Note } from '@/types/note.type';
@@ -39,14 +39,19 @@ const Explorer = ({ tree }: Props): ReactElement => {
 		setSelectedFolder(null);
 	};
 
+	const [expand, setExpand] = useState<boolean>(false);
+
 	return (
 		<div className={styles.explorer} onClick={(e) => handleDeselect(e)}>
 			<div className={styles.header}>
 				<p className="small">Explorer</p>
 
 				<div className={styles.headerActions}>
-					<Image src={plusIcon} width={15} height={15} alt="expand" />
-					<Image src={minusIcon} width={15} height={15} alt="minimize" />
+					{expand ? (
+						<Image src={minusIcon} width={15} height={15} alt="minimize" onClick={() => setExpand((old) => !old)} />
+					) : (
+						<Image src={plusIcon} width={15} height={15} alt="expand" onClick={() => setExpand((old) => !old)} />
+					)}
 				</div>
 			</div>
 
@@ -59,7 +64,7 @@ const Explorer = ({ tree }: Props): ReactElement => {
 				{tree &&
 					tree.map((treeItem) => {
 						return 'parentFolderId' in treeItem ? (
-							<ExplorerFolder folder={treeItem as Folder} key={treeItem.id} />
+							<ExplorerFolder folder={treeItem as Folder} key={treeItem.id} expand={expand} />
 						) : 'content' in treeItem ? (
 							<ExplorerNote note={treeItem as Note} key={treeItem.id} />
 						) : (
