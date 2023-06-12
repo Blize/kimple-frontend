@@ -1,6 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { ReactElement, ReactNode, createContext, useContext, useState } from 'react';
 
@@ -125,15 +126,32 @@ const NotificationProvider = ({ children }: Props): ReactElement => {
 	return (
 		<NotificationContext.Provider value={value}>
 			<div className={styles.wrapper}>
-				{notifications
-					.sort((a, b) => b.id - a.id)
-					.map((notification) => (
-						<div key={notification.id} className={clsx(styles.notification, levelStyles[notification.level])}>
-							<p className={styles.message}>{notification.message}</p>
+				<AnimatePresence>
+					{notifications
+						.sort((a, b) => b.id - a.id)
+						.map((notification) => (
+							<motion.div
+								layout
+								layoutId={`${notification.id}`}
+								key={notification.id}
+								className={clsx(styles.notification, levelStyles[notification.level])}
+								initial={{ opacity: 0, x: 200 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: 0, y: 0 }}
+							>
+								<p className={styles.message}>{notification.message}</p>
 
-							<Image src={icon} height={20} width={20} alt="close" onClick={() => clearNotification(notification.id)} />
-						</div>
-					))}
+								<Image
+									src={icon}
+									height={20}
+									width={20}
+									alt="close"
+									onClick={() => clearNotification(notification.id)}
+									className={styles.closeIcon}
+								/>
+							</motion.div>
+						))}
+				</AnimatePresence>
 			</div>
 			{children}
 		</NotificationContext.Provider>
