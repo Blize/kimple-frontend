@@ -31,7 +31,7 @@ export default function Editor({ note }: Props): ReactElement {
 	const handleSaveNote = async (): Promise<void> => {
 		if (note) {
 			try {
-				await updateNote(cookieToken, { content: textAreaValue }, note.id);
+				await updateNote(cookieToken, note.id, { content: textAreaValue });
 				startTransition(() => router.refresh());
 				addSuccess('successfully update new note');
 			} catch (err) {

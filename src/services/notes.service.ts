@@ -1,8 +1,9 @@
 import { env } from '@/env.mjs';
-import { fetcher } from '@/utils/fetcher';
 
 import { Base } from '@/types/base.type';
 import { CreateNote, Note } from '@/types/note.type';
+
+import { fetcher } from '@/utils/fetcher';
 
 const baseURL = env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -35,7 +36,7 @@ export const createNote = (token: string, note: CreateNote): Promise<Note> => {
 	});
 };
 
-export const updateNote = (token: string, newNote: CreateNote, id: Base['id']): Promise<Note> => {
+export const updateNote = (token: string, id: Base['id'], newNote: CreateNote): Promise<Note> => {
 	return fetcher<Note>('patch', `${baseURL}/note/${id}`, newNote, {
 		headers: {
 			Authorization: `bearer ${token}`,

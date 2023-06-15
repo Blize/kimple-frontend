@@ -13,3 +13,33 @@
 .icon {
 	opacity: 0.5;
 }
+
+.main {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	gap: 0.5rem;
+
+	font-size: 14px;
+}
+
+.options {
+	display: none;
+	gap: 0.5rem;
+
+	position: absolute;
+	right: 1rem;
+
+	backdrop-filter: blur(10px);
+
+	cursor: pointer;
+}
+
+.todo:hover .options {
+	display: flex;
+}
+
+.edit {
+	opacity: 0.5;
+}
