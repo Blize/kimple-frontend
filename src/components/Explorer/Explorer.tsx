@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { MouseEvent, ReactElement } from 'react';
+import { MouseEvent, ReactElement, useState } from 'react';
 
 import { Folder } from '@/types/folder.type';
 import { Note } from '@/types/note.type';
@@ -17,7 +17,9 @@ import ExplorerFolder from '@/components/ExplorerFolder/ExplorerFolder';
 import ExplorerNote from '@/components/ExplorerNote/ExplorerNote';
 import ExplorerTodo from '@/components/ExplorerTodo/ExplorerTodo';
 
+import minusIcon from '@/assets/minus-circle.svg';
 import noteIcon from '@/assets/note.svg';
+import plusIcon from '@/assets/plus-circle.svg';
 import todoIcon from '@/assets/todo.svg';
 
 import styles from './Explorer.module.css';
@@ -37,22 +39,32 @@ const Explorer = ({ tree }: Props): ReactElement => {
 		setSelectedFolder(null);
 	};
 
+	const [expand, setExpand] = useState<boolean>(false);
+
 	return (
-		<div className={styles.explorer}>
-			<p className="small">Explorer</p>
+		<div className={styles.explorer} onClick={(e) => handleDeselect(e)}>
+			<div className={styles.header}>
+				<p className="small">Explorer</p>
+
+				<div className={styles.headerActions}>
+					{expand ? (
+						<Image src={minusIcon} width={15} height={15} alt="minimize" onClick={() => setExpand((old) => !old)} />
+					) : (
+						<Image src={plusIcon} width={15} height={15} alt="expand" onClick={() => setExpand((old) => !old)} />
+					)}
+				</div>
+			</div>
 
 			{/* TODO drag n drop */}
-			{/* TODO nested folder creation  */}
 			{/* TODO scrolling */}
 
-			{/* TODO set selected null when on no folder */}
-			<div className={styles.items} onClick={(e) => handleDeselect(e)}>
+			<div className={styles.items}>
 				{!tree || (tree.length < 1 && <p>no items found</p>)}
 
 				{tree &&
 					tree.map((treeItem) => {
 						return 'parentFolderId' in treeItem ? (
-							<ExplorerFolder folder={treeItem as Folder} key={treeItem.id} />
+							<ExplorerFolder folder={treeItem as Folder} key={treeItem.id} expand={expand} />
 						) : 'content' in treeItem ? (
 							<ExplorerNote note={treeItem as Note} key={treeItem.id} />
 						) : (

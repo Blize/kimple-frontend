@@ -12,11 +12,15 @@
 	align-items: center;
 	justify-content: space-between;
 
+	gap: 0.5rem;
+
 	min-width: 15rem;
 	max-width: 20rem;
 
 	padding: 0.5rem;
 	margin: 0.5rem;
+
+	background-color: var(--gray);
 }
 
 .message {
@@ -27,17 +31,21 @@
 }
 
 .info {
-	border: 0.2rem solid var(--notification-info);
+	border: 0.1rem solid var(--notification-info);
 }
 
 .success {
-	border: 0.2rem solid var(--notification-success);
+	border: 0.1rem solid var(--notification-success);
 }
 
 .warning {
-	border: 0.2rem solid var(--notification-warning);
+	border: 0.1rem solid var(--notification-warning);
 }
 
 .error {
-	border: 0.2rem solid var(--notification-error);
+	border: 0.1rem solid var(--notification-error);
+}
+
+.closeIcon {
+	cursor: pointer;
 }

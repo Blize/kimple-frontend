@@ -52,7 +52,7 @@ const ExplorerProvider = ({ children }: Props): ReactElement => {
 
 	const handleAddFolder = async (cookie: string): Promise<void> => {
 		try {
-			await createFolder(cookie, {
+			const createdFolder = await createFolder(cookie, {
 				title: newTitle,
 				...(selectedFolder && { parentFolderId: selectedFolder.id }),
 			});
@@ -61,6 +61,7 @@ const ExplorerProvider = ({ children }: Props): ReactElement => {
 
 			addSuccess('successfully created new folder');
 
+			setSelectedFolder(createdFolder);
 			setNewItemMode(null);
 			setNewTitle('');
 		} catch (err) {
@@ -75,7 +76,10 @@ const ExplorerProvider = ({ children }: Props): ReactElement => {
 				...(selectedFolder && { folderId: selectedFolder.id }),
 			});
 
-			startTransition(() => router.push(`/editor/${createdNote.id}`));
+			startTransition(() => {
+				router.refresh();
+				router.push(`/editor/${createdNote.id}`);
+			});
 
 			addSuccess('successfully created new note');
 
@@ -93,7 +97,10 @@ const ExplorerProvider = ({ children }: Props): ReactElement => {
 				...(selectedFolder && { folderId: selectedFolder.id }),
 			});
 
-			startTransition(() => router.push(`/editor/${createdTodo.id}`));
+			startTransition(() => {
+				router.refresh();
+				router.push(`/editor/${createdTodo.id}`);
+			});
 
 			addSuccess('successfully created new todo');
 

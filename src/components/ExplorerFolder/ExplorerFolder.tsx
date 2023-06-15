@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ReactElement, startTransition, useState } from 'react';
+import { ReactElement, startTransition, useEffect, useState } from 'react';
 
 import { Folder } from '@/types/folder.type';
 import { Note } from '@/types/note.type';
@@ -29,9 +29,10 @@ import styles from './ExplorerFolder.module.css';
 
 type Props = {
 	folder: Folder;
+	expand: boolean;
 };
 
-const ExplorerFolder = ({ folder }: Props): ReactElement => {
+const ExplorerFolder = ({ folder, expand }: Props): ReactElement => {
 	const tokenCookie = getCookie('token')?.toString() ?? '';
 
 	const { addSuccess, addError } = useNotifications();
@@ -40,7 +41,12 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 
 	const router = useRouter();
 
-	const [open, setOpen] = useState(false);
+	// TODO refactor this out
+	useEffect(() => {
+		setOpen(expand);
+	}, [expand]);
+
+	const [open, setOpen] = useState(expand);
 	const [edit, setEdit] = useState(false);
 	const [folderTitle, setFolderTitle] = useState('');
 
@@ -96,7 +102,7 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 
 					{!edit ? (
 						<>
-							<Image src={folderIcon} width={20} height={20} alt="folder icon" />
+							<Image src={folderIcon} className={styles.edit} width={20} height={20} alt="folder icon" />
 							<p>{folder.title}</p>
 						</>
 					) : (
@@ -132,7 +138,7 @@ const ExplorerFolder = ({ folder }: Props): ReactElement => {
 				{folder.subFolders &&
 					folder.subFolders.map((subFolder) => {
 						return 'parentFolderId' in subFolder ? (
-							<ExplorerFolder folder={subFolder as Folder} key={subFolder.id} />
+							<ExplorerFolder folder={subFolder as Folder} key={subFolder.id} expand={expand} />
 						) : 'content' in subFolder ? (
 							<ExplorerNote note={subFolder as Note} key={subFolder.id} />
 						) : (

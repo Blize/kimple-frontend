@@ -6,12 +6,16 @@ import { getFolders } from '@/services/folder.service';
 import { ExplorerProvider } from '@/providers/ExplorerProvider';
 
 import Explorer from '@/components/Explorer/Explorer';
+import ExplorerSearch from '@/components/ExplorerSearch/ExplorerSearch';
 
 import styles from './layout.module.css';
 
 type Props = {
 	children: ReactNode;
+	searchParams: { q: string | undefined };
 };
+
+export const dynamic = 'force-dynamic';
 
 export default async function Layout({ children }: Props): Promise<ReactElement> {
 	const tokenCookie = cookies().get('token')?.value ?? '';
@@ -21,9 +25,9 @@ export default async function Layout({ children }: Props): Promise<ReactElement>
 	return (
 		<div className={styles.container}>
 			<div className={styles.folders}>
-				{/* TODO search */}
-
 				<ExplorerProvider>
+					<ExplorerSearch />
+
 					<Explorer tree={folders} />
 				</ExplorerProvider>
 			</div>

@@ -7,7 +7,12 @@ import { Todo } from '@/types/todo.type';
 
 const baseURL = env.NEXT_PUBLIC_BACKEND_URL;
 
-export const getFolders = (token: string, notes?: boolean, todos?: boolean): Promise<(Folder | Note | Todo)[]> => {
+export const getFolders = (
+	token: string,
+	notes?: boolean,
+	todos?: boolean,
+	query?: string,
+): Promise<(Folder | Note | Todo)[]> => {
 	return fetcher<(Folder | Note | Todo)[]>('get', `${baseURL}/folder`, null, {
 		headers: {
 			Authorization: `bearer ${token}`,
@@ -15,6 +20,7 @@ export const getFolders = (token: string, notes?: boolean, todos?: boolean): Pro
 		params: {
 			notes,
 			todos,
+			query,
 		},
 		cache: 'no-store',
 	});
