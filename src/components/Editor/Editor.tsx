@@ -38,7 +38,7 @@ export default function Editor({ note }: Props): ReactElement {
 
 				startTransition(() => router.refresh());
 
-				addSuccess('successfully update new note');
+				addSuccess('successfully update note');
 			} catch (err) {
 				addError('failed to update note', err);
 			}
@@ -60,7 +60,7 @@ export default function Editor({ note }: Props): ReactElement {
 
 				addSuccess('successfully created new note');
 			} catch (err) {
-				addError('failed to create note', err);
+				addError('failed to create new note', err);
 			}
 		}
 	};
