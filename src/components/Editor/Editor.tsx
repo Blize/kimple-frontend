@@ -38,7 +38,7 @@ export default function Editor({ note }: Props): ReactElement {
 
 				startTransition(() => router.refresh());
 
-				addSuccess('successfully update note');
+				addSuccess('successfully updated note');
 			} catch (err) {
 				addError('failed to update note', err);
 			}
