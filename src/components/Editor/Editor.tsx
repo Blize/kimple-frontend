@@ -56,7 +56,12 @@ export default function Editor({ note }: Props): ReactElement {
 	useKeyboardShortcut(['ctrl', 's'], () => handleSaveNote());
 	return (
 		<div className={styles.container}>
-			<Input value={inputValue} placeholder="Your note title..." onChange={(e) => setInputValue(e.target.value)} />
+			<Input
+				value={inputValue}
+				placeholder="Your note title..."
+				onChange={(e) => setInputValue(e.target.value)}
+				className={styles.input}
+			/>
 			<textarea
 				onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setTextAreaValue(e.target.value)}
 				value={textAreaValue}
