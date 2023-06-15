@@ -3,7 +3,7 @@
 import { useKeyboardShortcut } from '@/hooks/useKeyboardShortcut';
 import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, ReactElement, startTransition, useState } from 'react';
+import { ReactElement, startTransition, useState } from 'react';
 
 import { Note } from '@/types/note.type';
 
@@ -22,8 +22,8 @@ type Props = {
 
 export default function Editor({ note }: Props): ReactElement {
 	const cookieToken = getCookie('token')?.toString() ?? '';
-	const [textAreaValue, setTextAreaValue] = useState(note?.content ?? '');
-	const [inputValue, setInputValue] = useState(note?.title ?? '');
+	const [noteContent, setNoteContent] = useState(note?.content ?? '');
+	const [noteTitle, setNoteTitle] = useState(note?.title ?? '');
 
 	const router = useRouter();
 	const { addSuccess, addError, addWarning } = useNotifications();
@@ -31,19 +31,19 @@ export default function Editor({ note }: Props): ReactElement {
 	const handleSaveNote = async (): Promise<void> => {
 		if (note) {
 			try {
-				await updateNote(cookieToken, { content: textAreaValue }, note.id);
+				await updateNote(cookieToken, { content: noteContent }, note.id);
 				startTransition(() => router.refresh());
 				addSuccess('successfully update new note');
 			} catch (err) {
 				addError('failed to update note', err);
 			}
 		} else {
-			if (textAreaValue === '') {
+			if (noteContent === '') {
 				addWarning(`can't create empty note`);
 				return;
 			}
 			try {
-				await createNote(cookieToken, { content: textAreaValue });
+				await createNote(cookieToken, { content: noteContent });
 				startTransition(() => router.refresh());
 
 				addSuccess('successfully created new note');
@@ -57,16 +57,12 @@ export default function Editor({ note }: Props): ReactElement {
 	return (
 		<div className={styles.container}>
 			<Input
-				value={inputValue}
+				value={noteTitle}
 				placeholder="Your note title..."
-				onChange={(e) => setInputValue(e.target.value)}
+				onChange={(e) => setNoteTitle(e.target.value)}
 				className={styles.input}
 			/>
-			<textarea
-				onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setTextAreaValue(e.target.value)}
-				value={textAreaValue}
-				className={styles.editor}
-			/>
+			<textarea onChange={(e) => setNoteContent(e.target.value)} value={noteContent} className={styles.editor} />
 			<Button onClick={() => handleSaveNote()} className={styles.button}>
 				Save Note
 			</Button>
