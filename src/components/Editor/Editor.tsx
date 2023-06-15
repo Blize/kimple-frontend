@@ -12,8 +12,8 @@ import { createNote, updateNote } from '@/services/notes.service';
 import { useNotifications } from '@/providers/NotificationProvider';
 
 import Button from '@/components/Button/Button';
+import Input from '@/components/Input/Input';
 
-import Input from '../Input/Input';
 import styles from './Editor.module.css';
 
 type Props = {
@@ -60,10 +60,10 @@ export default function Editor({ note }: Props): ReactElement {
 				value={noteTitle}
 				placeholder="Your note title..."
 				onChange={(e) => setNoteTitle(e.target.value)}
-				className={styles.input}
+				className={styles.titleInput}
 			/>
 			<textarea onChange={(e) => setNoteContent(e.target.value)} value={noteContent} className={styles.editor} />
-			<Button onClick={() => handleSaveNote()} className={styles.button}>
+			<Button onClick={() => handleSaveNote()} className={styles.saveButton}>
 				Save Note
 			</Button>
 		</div>

@@ -24,13 +24,13 @@ export default async function Layout({ children }: Props): Promise<ReactElement>
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.folders}>
-				<ExplorerProvider>
+			<ExplorerProvider>
+				<div className={styles.folders}>
 					<ExplorerSearch />
 
 					<Explorer tree={folders} />
-				</ExplorerProvider>
-			</div>
+				</div>
+			</ExplorerProvider>
 
 			<div className={styles.notes}>{children}</div>
 		</div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useKeyboardShortcut } from '@/hooks/useKeyboardShortcut';
 import { getCookie } from 'cookies-next';
 import { LayoutGroup, motion } from 'framer-motion';
 import { MouseEvent, ReactElement, useEffect, useState } from 'react';
@@ -45,6 +46,9 @@ const ExplorerSearch = (): ReactElement => {
 		setSearch('');
 	};
 
+	useKeyboardShortcut(['ctrl', 'k'], () => setFocus((old) => !old));
+	useKeyboardShortcut(['esc'], () => setFocus(false));
+
 	return (
 		<>
 			<LayoutGroup>
@@ -56,7 +60,7 @@ const ExplorerSearch = (): ReactElement => {
 							className={styles.searchInput}
 							onChange={(e) => setSearch(e.target.value)}
 							value={search}
-							placeholder="Search here"
+							placeholder="Search here (ctrl + k)"
 							onClick={() => setFocus(true)}
 						/>
 					)}

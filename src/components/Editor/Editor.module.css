@@ -4,31 +4,35 @@
 	height: 100%;
 	gap: 0.5rem;
 }
+
 .editor {
-	height: 100%;
-	width: 100%;
-	border: 1px solid transparent;
+	flex: 1 1 0%;
+
 	padding: 0.5rem 0 0 1rem;
-	background-color: var(--gray-2);
 	color: #fff;
 	font-size: 15px;
+
 	border: none;
 	outline: none;
 	resize: none;
+
+	background-color: var(--gray-2);
+	border: 1px solid transparent;
 }
+
 .editor:hover {
 	border: var(--primary-border-color) 1px solid;
 	cursor: text;
 }
 
-.button {
+.saveButton {
 	position: absolute;
 	bottom: 2rem;
 	right: 2rem;
-	font-size: 15px;
+
 	background-color: var(--gray-3);
 }
-.input {
-	font-size: 18px;
-	height: 2.5rem;
+
+.titleInput {
+	height: 3rem !important;
 }
