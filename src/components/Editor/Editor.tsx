@@ -31,8 +31,13 @@ export default function Editor({ note }: Props): ReactElement {
 	const handleSaveNote = async (): Promise<void> => {
 		if (note) {
 			try {
-				await updateNote(cookieToken, note.id, { content: noteContent });
+				await updateNote(cookieToken, note.id, {
+					content: noteContent,
+					title: noteTitle,
+				});
+
 				startTransition(() => router.refresh());
+
 				addSuccess('successfully update new note');
 			} catch (err) {
 				addError('failed to update note', err);
@@ -43,8 +48,15 @@ export default function Editor({ note }: Props): ReactElement {
 				return;
 			}
 			try {
-				await createNote(cookieToken, { content: noteContent });
-				startTransition(() => router.refresh());
+				const createdNote = await createNote(cookieToken, {
+					content: noteContent,
+					title: noteTitle,
+				});
+
+				startTransition(() => {
+					router.refresh();
+					router.push(`/editor/${createdNote.id}`);
+				});
 
 				addSuccess('successfully created new note');
 			} catch (err) {
