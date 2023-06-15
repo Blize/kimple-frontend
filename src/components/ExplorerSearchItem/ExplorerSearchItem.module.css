@@ -1,0 +1,30 @@
+.main {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	gap: 0.5rem;
+}
+
+.history {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	gap: 0.5rem;
+}
+
+.historyItem {
+	opacity: 0.5;
+	font-size: 12px;
+}
+
+.item {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+}
+
+.icon {
+	opacity: 0.5;
+}

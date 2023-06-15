@@ -1,11 +1,15 @@
+html,
 body {
 	margin: 0;
+	padding: 0;
 
 	color: #fff;
 	background-color: var(--gray);
 }
 
 :root {
+	--dark: #181717b7;
+
 	--gray: #202021;
 	--gray-2: #323233;
 	--gray-3: #58585c;
@@ -25,7 +29,19 @@ button {
 	border: none;
 }
 
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
 a {
 	text-decoration: none;
 	color: #fff;
+}
+
+.small {
+	font-weight: 600;
+	font-size: 13px;
+	opacity: 0.5;
 }

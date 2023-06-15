@@ -1,0 +1,63 @@
+.content {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	gap: 0.5rem;
+}
+
+.mainContent {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	gap: 0.5rem;
+
+	font-size: 14px;
+}
+
+.arrow {
+	cursor: pointer;
+
+	opacity: 0.5;
+	transition: all ease-in-out 200ms;
+}
+
+.arrowOpen {
+	transform: rotate(90deg);
+}
+
+.items {
+	display: flex;
+	flex-direction: column;
+
+	gap: 0.5rem;
+
+	margin-top: 0.5rem;
+	margin-left: 1.5rem;
+}
+
+.options {
+	display: none;
+	gap: 0.5rem;
+
+	position: absolute;
+	right: 1rem;
+
+	backdrop-filter: blur(10px);
+
+	cursor: pointer;
+}
+
+.content:hover .options {
+	display: flex;
+}
+
+.edit {
+	opacity: 0.5;
+}
+
+.addFolderContainer {
+	margin-top: 0.5rem;
+	margin-left: 3rem;
+}

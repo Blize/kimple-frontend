@@ -26,6 +26,8 @@ const LoginPage = (): ReactElement => {
 
 		try {
 			const { token } = await login({ username, password });
+
+			// TODO use exp instead of ENV
 			setCookie('token', token, { sameSite: true, expires: new Date(Date.now() + 86400 * 1000 * 14) });
 
 			addSuccess('successfully logged in');
@@ -63,7 +65,7 @@ const LoginPage = (): ReactElement => {
 					Login
 				</Button>
 
-				<Link href={'/login'}>or register here</Link>
+				<Link href={'/register'}>or register here</Link>
 			</div>
 		</div>
 	);
