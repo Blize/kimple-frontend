@@ -3,8 +3,10 @@ import { ReactElement } from 'react';
 
 import { Note } from '@/types/note.type';
 import { Recent } from '@/types/recent.type';
+import { Todo } from '@/types/todo.type';
 
 import { getNotes } from '@/services/notes.service';
+import { getTodos } from '@/services/todo.service';
 
 import CreateCard from '@/components/CreateCard/CreateCard';
 import HomeCard from '@/components/HomeCard/HomeCard';
@@ -17,9 +19,9 @@ const HomePage = async (): Promise<ReactElement> => {
 	const cookieRecent: Recent = JSON.parse(cookies().get('recent')?.value ?? '{}') ?? {};
 
 	const notes: Note[] | null = (await getNotes(cookieToken)) ?? null;
+	const todos: Todo[] | null = (await getTodos(cookieToken)) ?? null;
 
-	// TODO add todos here too when implemented
-	const suggestions = [...notes].sort((itemA, itemB) => {
+	const suggestions = [...notes, ...todos].sort((itemA, itemB) => {
 		// TODO handle if cookieRecent[itemA.id] or cookieRecent[itemB.id] is undefined
 		if (cookieRecent[itemA.id] > cookieRecent[itemB.id]) return -1;
 		if (cookieRecent[itemA.id] < cookieRecent[itemB.id]) return 1;
@@ -32,7 +34,7 @@ const HomePage = async (): Promise<ReactElement> => {
 
 			<div className={styles.cardContainer}>
 				{suggestions.map((item) => (
-					<HomeCard key={`suggestion.${item.id}`} note={item} />
+					<HomeCard key={`suggestion.${item.id}`} item={item} />
 				))}
 
 				{suggestions.length < 1 && (
@@ -48,7 +50,7 @@ const HomePage = async (): Promise<ReactElement> => {
 			<p>Notes</p>
 
 			<div className={styles.cardContainer}>
-				{notes && notes.map((note) => <HomeCard key={note.id} note={note} />)}
+				{notes && notes.map((note) => <HomeCard key={note.id} item={note} />)}
 				<CreateCard label="Add Note" />
 			</div>
 
@@ -57,7 +59,7 @@ const HomePage = async (): Promise<ReactElement> => {
 			<p>Todo Lists</p>
 
 			<div className={styles.cardContainer}>
-				{/* cards */}
+				{todos && todos.map((todo) => <HomeCard key={todo.id} item={todo} />)}
 				<CreateCard label="Add Todo List" />
 			</div>
 		</div>
