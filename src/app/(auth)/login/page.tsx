@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ReactElement, useState } from 'react';
 
+import { parseJwt } from '@/utils/decodeJwt';
+
 import { login } from '@/services/auth.service';
 
 import { useNotifications } from '@/providers/NotificationProvider';
@@ -27,8 +29,9 @@ const LoginPage = (): ReactElement => {
 		try {
 			const { token } = await login({ username, password });
 
-			// TODO use exp instead of ENV
-			setCookie('token', token, { sameSite: true, expires: new Date(Date.now() + 86400 * 1000 * 14) });
+			const { exp } = parseJwt(token);
+
+			setCookie('token', token, { sameSite: true, expires: new Date(exp * 1000) });
 
 			addSuccess('successfully logged in');
 

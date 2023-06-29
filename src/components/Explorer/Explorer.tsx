@@ -58,29 +58,31 @@ const Explorer = ({ tree }: Props): ReactElement => {
 			{/* TODO drag n drop */}
 			{/* TODO scrolling */}
 
-			<div className={styles.items}>
-				{!tree || (tree.length < 1 && <p>no items found</p>)}
+			<div className={styles.itemsWrapper}>
+				<div className={styles.items}>
+					{!tree || (tree.length < 1 && <p>no items found</p>)}
 
-				{tree &&
-					tree.map((treeItem) => {
-						return 'parentFolderId' in treeItem ? (
-							<ExplorerFolder folder={treeItem as Folder} key={treeItem.id} expand={expand} />
-						) : 'content' in treeItem ? (
-							<ExplorerNote note={treeItem as Note} key={treeItem.id} />
-						) : (
-							<ExplorerTodo todo={treeItem as Todo} key={treeItem.id} />
-						);
-					})}
+					{tree &&
+						tree.map((treeItem) => {
+							return 'parentFolderId' in treeItem ? (
+								<ExplorerFolder folder={treeItem as Folder} key={treeItem.id} expand={expand} />
+							) : 'content' in treeItem ? (
+								<ExplorerNote note={treeItem as Note} key={treeItem.id} />
+							) : (
+								<ExplorerTodo todo={treeItem as Todo} key={treeItem.id} />
+							);
+						})}
 
-				{newItemMode && !selectedFolder && (
-					<ExplorerAddInput
-						type={newItemMode}
-						value={newTitle}
-						onChange={(e) => setNewTitle(e.target.value)}
-						onSubmit={() => handleNewItem(tokenCookie)}
-						onBlur={() => setNewItemMode(null)}
-					/>
-				)}
+					{newItemMode && !selectedFolder && (
+						<ExplorerAddInput
+							type={newItemMode}
+							value={newTitle}
+							onChange={(e) => setNewTitle(e.target.value)}
+							onSubmit={() => handleNewItem(tokenCookie)}
+							onBlur={() => setNewItemMode(null)}
+						/>
+					)}
+				</div>
 			</div>
 
 			<div className={styles.buttons}>

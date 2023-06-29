@@ -1,7 +1,8 @@
 import { env } from '@/env.mjs';
-import { fetcher } from '@/utils/fetcher';
 
 import { Credentials, Token, User } from '@/types/user.type';
+
+import { fetcher } from '@/utils/fetcher';
 
 const baseURL = env.NEXT_PUBLIC_BACKEND_URL;
 

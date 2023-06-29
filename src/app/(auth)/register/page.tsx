@@ -1,10 +1,11 @@
 'use client';
 
-import { env } from '@/env.mjs';
 import { setCookie } from 'cookies-next';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ReactElement, useState } from 'react';
+
+import { parseJwt } from '@/utils/decodeJwt';
 
 import { login, register } from '@/services/auth.service';
 
@@ -23,19 +24,15 @@ const RegisterPage = (): ReactElement => {
 	const router = useRouter();
 
 	const handleRegister = async (username: string, password: string): Promise<void> => {
-		console.log({ password, username });
-
 		if (!username || !password) return;
 
 		try {
 			await register({ username, password });
 			const { token } = await login({ username, password });
 
-			// TODO use exp instead of ENV
-			setCookie('token', token, {
-				sameSite: true,
-				expires: new Date(Date.now() + env.NEXT_PUBLIC_COOKIE_EXPIRY * 1000 * 14),
-			});
+			const { exp } = parseJwt(token);
+
+			setCookie('token', token, { sameSite: true, expires: new Date(exp * 1000) });
 
 			addSuccess('successfully registered');
 

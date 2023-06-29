@@ -3,11 +3,11 @@
 
 	display: flex;
 	flex-direction: column;
+	gap: 0.5rem;
 
-	height: 100%;
+	flex: 1 1 0%;
+
 	width: 100%;
-
-	padding: 1rem;
 
 	background-color: var(--gray-2);
 }
@@ -16,6 +16,8 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+
+	padding: 1rem 1rem 0 1rem;
 }
 
 .headerActions {
@@ -27,31 +29,27 @@
 	cursor: pointer;
 }
 
-.items {
-	display: flex;
-	flex-direction: column;
-
-	height: 100%;
+.itemsWrapper {
+	/* display: flex; */
+	flex: 1 1 0%;
 
 	overflow-y: scroll;
 
+	padding: 0 1rem;
+}
+
+.items {
+	display: flex;
+	flex-direction: column;
 	gap: 0.5rem;
-
-	margin-top: 1rem;
-
-	padding-bottom: 5rem;
 }
 
 .buttons {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
 
-	width: 20.5rem;
+	width: 100%;
 
 	padding: 0.5rem;
 

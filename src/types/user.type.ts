@@ -13,3 +13,9 @@ export type Credentials = {
 export type Token = {
 	token: string;
 };
+
+export type JwtPayload = {
+	id: string;
+	iat: number;
+	exp: number;
+};

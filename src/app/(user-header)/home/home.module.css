@@ -9,6 +9,8 @@
 	flex-direction: row;
 	align-items: center;
 	gap: 0.5rem;
+
+	overflow-x: auto;
 }
 
 .emptySuggestions {

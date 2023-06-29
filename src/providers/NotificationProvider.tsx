@@ -153,6 +153,7 @@ const NotificationProvider = ({ children }: Props): ReactElement => {
 						))}
 				</AnimatePresence>
 			</div>
+
 			{children}
 		</NotificationContext.Provider>
 	);
